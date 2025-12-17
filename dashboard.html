@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Lost & Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Lost & Found</div>
+        <div class="user-info">
+            <span class="user-name">👤 John Doe</span>
+            <a href="index.html" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <!-- NOTIFICATION DROPDOWN -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <div class="notification-dropdown-header">
+            <h3>Notifications</h3>
+            <span class="mark-all-read" id="markAllRead">Mark all as read</span>
+        </div>
+        <div class="notification-dropdown-body" id="notificationDropdownBody">
+            <div class="notification-empty">
+                <div style="font-size:48px;margin-bottom:10px">🔔</div>
+                <div>No notifications yet</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('report')">📝 Report Item</button>
+            <button class="tab" onclick="switchTab('lost')">🔍 Lost Items</button>
+            <button class="tab" onclick="switchTab('found')">✅ Found Items</button>
+            <button class="tab" onclick="switchTab('my-items')">📋 My Reports</button>
+        </div>
+
+        <!-- REPORT ITEM TAB -->
+        <div id="report" class="tab-content active">
+            <div class="report-form">
+                <h2>Report an Item</h2>
+                <form id="reportForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemType">Item Type</label>
+                            <select id="itemType" required>
+                                <option value="">Select type</option>
+                                <option value="lost">Lost Item</option>
+                                <option value="found">Found Item</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" required>
+                                <option value="">Select category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="documents">Documents</option>
+                                <option value="accessories">Accessories</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="bags">Bags & Luggage</option>
+                                <option value="keys">Keys</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <input type="text" id="itemName" placeholder="e.g., iPhone 13 Pro" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description"
+                            placeholder="Provide detailed description (color, brand, unique features, etc.)"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" placeholder="Where was it lost/found?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact">Contact Information</label>
+                        <input type="text" id="contact" placeholder="Phone or email" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Report</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- LOST ITEMS TAB -->
+        <div id="lost" class="tab-content">
+            <div class="items-grid" id="lostItemsGrid">
+                <!-- Sample Lost Items -->
+                <div class="item-card">
+                    <span class="item-status status-lost">LOST</span>
+                    <h3>iPhone 13 Pro</h3>
+                    <div class="item-details">
+                        <p><strong>Category:</strong> Electronics</p>
+                        <p><strong>Description:</strong> Blue iPhone 13 Pro with cracked screen protector</p>
+                        <p><strong>Location:</strong> Central Library, 3rd Floor</p>
+                    </div>
+                    <div class="item-meta">
+                        <span>📅 Dec 15, 2025</span>
+                        <button class="contact-btn" onclick="contactOwner('iPhone 13 Pro')">Contact</button>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <span class="item-status status-lost">LOST</span>
+                    <h3>Black Leather Wallet</h3>
+                    <div class="item-details">
+                        <p><strong>Category:</strong> Accessories</p>
+                        <p><strong>Description:</strong> Black leather wallet with ID cards inside</p>
+                        <p><strong>Location:</strong> Campus Cafeteria</p>
+                    </div>
+                    <div class="item-meta">
+                        <span>📅 Dec 14, 2025</span>
+                        <button class="contact-btn" onclick="contactOwner('Black Leather Wallet')">Contact</button>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <span class="item-status status-lost">LOST</span>
+                    <h3>Car Keys with Toyota Keychain</h3>
+                    <div class="item-details">
+                        <p><strong>Category:</strong> Keys</p>
+                        <p><strong>Description:</strong> Toyota car keys with blue keychain</p>
+                        <p><strong>Location:</strong> Parking Lot B</p>
+                    </div>
+                    <div class="item-meta">
+                        <span>📅 Dec 13, 2025</span>
+                        <button class="contact-btn" onclick="contactOwner('Car Keys')">Contact</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOUND ITEMS TAB -->
+        <div id="found" class="tab-content">
+            <div class="items-grid" id="foundItemsGrid">
+                <!-- Sample Found Items -->
+                <div class="item-card">
+                    <span class="item-status status-found">FOUND</span>
+                    <h3>Silver MacBook Pro</h3>
+                    <div class="item-details">
+                        <p><strong>Category:</strong> Electronics</p>
+                        <p><strong>Description:</strong> 13-inch MacBook Pro with stickers on lid</p>
+                        <p><strong>Location:</strong> Study Room 204</p>
+                    </div>
+                    <div class="item-meta">
+                        <span>📅 Dec 16, 2025</span>
+                        <button class="contact-btn" onclick="contactFinder('MacBook Pro')">Claim Item</button>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <span class="item-status status-found">FOUND</span>
+                    <h3>Blue Backpack</h3>
+                    <div class="item-details">
+                        <p><strong>Category:</strong> Bags & Luggage</p>
+                        <p><strong>Description:</strong> Nike blue backpack with textbooks inside</p>
+                        <p><strong>Location:</strong> Gym Locker Room</p>
+                    </div>
+                    <div class="item-meta">
+                        <span>📅 Dec 15, 2025</span>
+                        <button class="contact-btn" onclick="contactFinder('Blue Backpack')">Claim Item</button>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <span class="item-status status-found">FOUND</span>
+                    <h3>Student ID Card</h3>
+                    <div class="item-details">
+                        <p><strong>Category:</strong> Documents</p>
+                        <p><strong>Description:</strong> Student ID for Sarah Johnson</p>
+                        <p><strong>Location:</strong> Main Building Entrance</p>
+                    </div>
+                    <div class="item-meta">
+                        <span>📅 Dec 14, 2025</span>
+                        <button class="contact-btn" onclick="contactFinder('Student ID')">Claim Item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTIFICATIONS TAB -->
+        <div id="notifications" class="tab-content">
+            <div class="items-grid" id="notificationsGrid">
+                <div class="empty-state">
+                    <div class="icon">🔔</div>
+                    <h3>No Notifications</h3>
+                    <p>You don't have any notifications yet. When your items are matched, you'll see notifications here.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MY ITEMS TAB -->
+        <div id="my-items" class="tab-content">
+            <div class="items-grid" id="myItemsGrid">
+                <div class="empty-state">
+                    <div class="icon">📦</div>
+                    <h3>No Reports Yet</h3>
+                    <p>You haven't reported any items. Use the "Report Item" tab to get started.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.addEventListener('DOMContentLoaded', function () {
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                // Not logged in, redirect to login
+                alert('⚠️ Please login first to access the dashboard!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Display user name
+            const user = JSON.parse(currentUser);
+            document.querySelector('.user-name').textContent = '👤 ' + user.name;
+        });
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const confirmLogout = confirm('Are you sure you want to logout?');
+            if (confirmLogout) {
+                // Clear session
+                localStorage.removeItem('currentUser');
+                alert('✅ Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Notification Bell Functionality
+        const notificationBell = document.getElementById('notificationBell');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+        const notificationBadge = document.getElementById('notificationBadge');
+        const notificationDropdownBody = document.getElementById('notificationDropdownBody');
+
+        // Toggle dropdown
+        if (notificationBell) {
+            notificationBell.addEventListener('click', function (e) {
+                e.stopPropagation();
+                notificationDropdown.classList.toggle('active');
+                if (notificationDropdown.classList.contains('active')) {
+                    loadNotificationDropdown();
+                }
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!notificationDropdown.contains(e.target) && !notificationBell.contains(e.target)) {
+                notificationDropdown.classList.remove('active');
+            }
+        });
+
+        // Load notifications in dropdown
+        function loadNotificationDropdown() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+
+            // Filter notifications for current user
+            const userNotifications = notifications.filter(n => n.to === currentUser.email);
+
+            if (userNotifications.length === 0) {
+                notificationDropdownBody.innerHTML = `
+                    <div class="notification-empty">
+                        <div style="font-size:48px;margin-bottom:10px">🔔</div>
+                        <div>No notifications yet</div>
+                    </div>
+                `;
+            } else {
+                // Sort by timestamp (newest first)
+                userNotifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                notificationDropdownBody.innerHTML = userNotifications.map(notif => {
+                    const timeAgo = getTimeAgo(new Date(notif.timestamp));
+                    const isMatchFound = notif.type === 'match_found';
+
+                    return `
+                        <div class="notification-item ${!notif.read ? 'unread' : ''}">
+                            <div class="notification-item-header">
+                                <div class="notification-item-title">${notif.title}</div>
+                                <div class="notification-item-time">${timeAgo}</div>
+                            </div>
+                            <div class="notification-item-message">
+                                ${notif.message}<br>
+                                <strong>Contact:</strong> ${isMatchFound ? notif.foundItem.contact : notif.lostItem.contact}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            updateNotificationBadge();
+        }
+
+        // Update badge counter
+        function updateNotificationBadge() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+
+            const unreadCount = notifications.filter(n => n.to === currentUser.email && !n.read).length;
+
+            if (unreadCount > 0) {
+                notificationBadge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+                notificationBadge.style.display = 'flex';
+            } else {
+                notificationBadge.style.display = 'none';
+            }
+        }
+
+        // Mark all as read
+        document.getElementById('markAllRead').addEventListener('click', function () {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+
+            notifications.forEach(n => {
+                if (n.to === currentUser.email) {
+                    n.read = true;
+                }
+            });
+
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+            loadNotificationDropdown();
+        });
+
+        // Load badge on page load
+        updateNotificationBadge();
+
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+
+            // Load data based on tab
+            if (tabName === 'notifications') {
+                loadNotifications();
+            } else if (tabName === 'my-items') {
+                loadMyReports();
+            }
+        }
+
+        // Form Submission
+        document.getElementById('reportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = {
+                type: document.getElementById('itemType').value,
+                category: document.getElementById('category').value,
+                name: document.getElementById('itemName').value,
+                description: document.getElementById('description').value,
+                location: document.getElementById('location').value,
+                date: document.getElementById('date').value,
+                contact: document.getElementById('contact').value,
+                reportedBy: JSON.parse(localStorage.getItem('currentUser')).email,
+                reportedAt: new Date().toISOString()
+            };
+
+            // Get existing reports
+            const reports = JSON.parse(localStorage.getItem('reports') || '[]');
+
+            // Add new report
+            reports.push(formData);
+
+            // Save to localStorage
+            localStorage.setItem('reports', JSON.stringify(reports));
+
+            alert('✅ Item reported successfully!\n\nItem: ' + formData.name + '\nType: ' + formData.type.toUpperCase());
+
+            // Reset form
+            this.reset();
+
+            // Optionally switch to My Reports tab
+            const viewReports = confirm('Would you like to view your reports?');
+            if (viewReports) {
+                switchTab('my-items');
+                loadMyReports();
+            }
+        });
+
+        // Load user's reports
+        function loadMyReports() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const reports = JSON.parse(localStorage.getItem('reports') || '[]');
+
+            // Filter reports by current user
+            const myReports = reports.filter(r => r.reportedBy === currentUser.email);
+
+            const myItemsGrid = document.getElementById('myItemsGrid');
+
+            if (myReports.length === 0) {
+                myItemsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📦</div>
+                        <h3>No Reports Yet</h3>
+                        <p>You haven't reported any items. Use the "Report Item" tab to get started.</p>
+                    </div>
+                `;
+            } else {
+                myItemsGrid.innerHTML = myReports.map(item => `
+                    <div class="item-card">
+                        <span class="item-status ${item.type === 'lost' ? 'status-lost' : 'status-found'}">
+                            ${item.type.toUpperCase()}
+                        </span>
+                        <h3>${item.name}</h3>
+                        <div class="item-details">
+                            <p><strong>Category:</strong> ${item.category}</p>
+                            <p><strong>Description:</strong> ${item.description}</p>
+                            <p><strong>Location:</strong> ${item.location}</p>
+                        </div>
+                        <div class="item-meta">
+                            <span>📅 ${new Date(item.date).toLocaleDateString()}</span>
+                            <span>📞 ${item.contact}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Load notifications
+        function loadNotifications() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+
+            // Filter notifications for current user
+            const userNotifications = notifications.filter(n => n.to === currentUser.email);
+
+            const notificationsGrid = document.getElementById('notificationsGrid');
+
+            if (userNotifications.length === 0) {
+                notificationsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">🔔</div>
+                        <h3>No Notifications</h3>
+                        <p>You don't have any notifications yet. When your items are matched, you'll see notifications here.</p>
+                    </div>
+                `;
+            } else {
+                // Sort by timestamp (newest first)
+                userNotifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                notificationsGrid.innerHTML = userNotifications.map(notif => {
+                    const timeAgo = getTimeAgo(new Date(notif.timestamp));
+                    const isMatchFound = notif.type === 'match_found';
+
+                    return `
+                        <div class="notification-card ${!notif.read ? 'unread' : ''}">
+                            <div class="notification-header">
+                                <div class="notification-title">${notif.title}</div>
+                                ${!notif.read ? '<span class="unread-badge">NEW</span>' : ''}
+                            </div>
+                            <div class="notification-body">
+                                <p>${notif.message}</p>
+                                <br>
+                                <p><strong>Your ${isMatchFound ? 'Lost' : 'Found'} Item:</strong></p>
+                                <p>📦 ${isMatchFound ? notif.lostItem.name : notif.foundItem.name}</p>
+                                <p>📍 ${isMatchFound ? notif.lostItem.location : notif.foundItem.location}</p>
+                                <p>📅 ${new Date(isMatchFound ? notif.lostItem.date : notif.foundItem.date).toLocaleDateString()}</p>
+                                <br>
+                                <p><strong>${isMatchFound ? 'Found' : 'Lost'} Item Match:</strong></p>
+                                <p>📦 ${isMatchFound ? notif.foundItem.name : notif.lostItem.name}</p>
+                                <p>📍 ${isMatchFound ? notif.foundItem.location : notif.lostItem.location}</p>
+                                <p>📅 ${new Date(isMatchFound ? notif.foundItem.date : notif.lostItem.date).toLocaleDateString()}</p>
+                                <p>👤 ${isMatchFound ? 'Found by' : 'Owner'}: ${isMatchFound ? notif.foundItem.reportedBy : notif.lostItem.reportedBy}</p>
+                                <p>📞 Contact: ${isMatchFound ? notif.foundItem.contact : notif.lostItem.contact}</p>
+                            </div>
+                            <div class="notification-footer">
+                                <span class="notification-time">⏰ ${timeAgo}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Helper function to get time ago
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' minutes ago';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' hours ago';
+            if (seconds < 604800) return Math.floor(seconds / 86400) + ' days ago';
+            return date.toLocaleDateString();
+        }
+
+        // Contact Functions
+        function contactOwner(itemName) {
+            alert('Contacting owner of: ' + itemName + '\n\nIn a real application, this would open a secure messaging system.');
+        }
+
+        function contactFinder(itemName) {
+            alert('Claiming item: ' + itemName + '\n\nIn a real application, this would initiate the claim verification process.');
+        }
+    </script>
+</body>
+
+</html>

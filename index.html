@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lost & Found Management System</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(1200px 400px at 10% 20%, rgba(100, 95, 255, 0.08), transparent),
+        radial-gradient(700px 300px at 90% 70%, rgba(255, 150, 180, 0.06), transparent),
+        linear-gradient(180deg, #070708 0%, #0b0b0f 60%, #08080a 100%);
+      overflow: hidden;
+    }
+
+    /* decorative blurred pills */
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      filter: blur(40px) saturate(120%);
+      opacity: 0.9;
+      transform: translateZ(0);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 520px;
+      height: 160px;
+      left: -120px;
+      top: 18%;
+      background: linear-gradient(90deg, rgba(60, 64, 255, 0.25), rgba(120, 255, 200, 0.06));
+      border-radius: 100px;
+      transform: rotate(-18deg);
+    }
+
+    .hero::after {
+      width: 640px;
+      height: 220px;
+      right: -180px;
+      bottom: 8%;
+      background: linear-gradient(90deg, rgba(255, 140, 155, 0.14), rgba(180, 120, 255, 0.06));
+      border-radius: 140px;
+      transform: rotate(12deg);
+    }
+
+    /* NAVBAR */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 50px;
+      animation: fadeDown 1s ease;
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .auth-buttons a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: 0.3s;
+      border: 2px solid white;
+    }
+
+    .auth-buttons a:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* HERO CONTENT */
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: 88px;
+      line-height: 0.95;
+      font-weight: 900;
+      letter-spacing: 1px;
+      animation: zoomIn 1.2s ease;
+      margin-bottom: 8px;
+    }
+
+    /* gradient text for part of the headline */
+    .gradient {
+      background: linear-gradient(90deg, #98A3FF 0%, #FFD0E0 50%, #FFB3CD 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      margin-top: 10px;
+      max-width: 720px;
+      opacity: 0.9;
+      color: rgba(255, 255, 255, 0.75);
+      animation: fadeUp 1.3s ease forwards;
+      animation-delay: 0.4s;
+    }
+
+    .hero-cta {
+      margin-top: 36px;
+      opacity: 0;
+      animation: fadeUp 1.3s ease forwards;
+      animation-delay: 0.7s;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cta-btn {
+      text-decoration: none;
+      color: white;
+      padding: 14px 34px;
+      border-radius: 40px;
+      font-weight: 700;
+      margin: 0 8px;
+      transition: 0.25s;
+      background: linear-gradient(90deg, #6e7bff, #ff8fb8);
+      box-shadow: 0 8px 30px rgba(110, 123, 255, 0.18);
+      display: inline-block;
+    }
+
+    .cta-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.9);
+      padding: 12px 26px;
+      box-shadow: none;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 20px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .subtitle {
+      text-align: center;
+      max-width: 700px;
+      margin: 15px auto 50px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* CARDS */
+    .grid {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 35px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      transition: 0.3s;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card h3 {
+      color: #ffd6ea;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .card .icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    /* WHY SECTION */
+    .why {
+      background: transparent;
+    }
+
+    /* FOOTER */
+    footer {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      padding: 26px 10px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 45px;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+
+    <nav>
+      <div class="logo">Lost & Found</div>
+      <div class="auth-buttons">
+        <a href="login.html">Login</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <h1>Never Lose <span class="gradient">Anything Again</span></h1>
+      <p>A smart platform to report, track, and reunite lost items with their rightful owners. Simple, fast, and secure.
+      </p>
+
+      <div class="hero-cta">
+        <a href="login.html" class="cta-btn">Report Lost Item</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <h2 data-aos="fade-up">How It Works</h2>
+    <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
+      Three simple steps to reunite with your lost belongings.
+    </p>
+
+    <div class="grid">
+      <div class="card" data-aos="fade-up">
+        <div class="icon">📝</div>
+        <h3>Report Item</h3>
+        <p>Quickly report your lost or found item with detailed descriptions and photos.</p>
+      </div>
+
+      <div class="card" data-aos="fade-up" data-aos-delay="150">
+        <div class="icon">🔍</div>
+        <h3>Smart Matching</h3>
+        <p>Our system automatically matches lost items with found items using AI-powered search.</p>
+      </div>
+
+      <div class="card" data-aos="fade-up" data-aos-delay="300">
+        <div class="icon">🤝</div>
+        <h3>Get Reunited</h3>
+        <p>Connect with finders or owners through secure messaging and arrange safe pickup.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="why">
+    <h2 data-aos="zoom-in">Why Choose Our Platform?</h2>
+    <p class="subtitle" data-aos="fade-up">
+      Built with security, speed, and simplicity in mind.
+    </p>
+
+    <div class="grid">
+      <div class="card" data-aos="flip-left">
+        <div class="icon">🔒</div>
+        <h3>Secure & Private</h3>
+        <p>Your personal information is protected with end-to-end encryption.</p>
+      </div>
+
+      <div class="card" data-aos="flip-left" data-aos-delay="150">
+        <div class="icon">⚡</div>
+        <h3>Real-time Updates</h3>
+        <p>Get instant notifications when potential matches are found.</p>
+      </div>
+
+      <div class="card" data-aos="flip-left" data-aos-delay="300">
+        <div class="icon">🌍</div>
+        <h3>Community Driven</h3>
+        <p>Join thousands of users helping each other recover lost items daily.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Lost & Found Management System — Helping you find what matters
+  </footer>
+
+  <!-- AOS SCRIPT -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
+
+</body>
+
+</html>

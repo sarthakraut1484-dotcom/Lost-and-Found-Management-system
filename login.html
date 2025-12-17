@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Lost & Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #070708 0%, #0b0b0f 60%, #08080a 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background elements */
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      filter: blur(40px) saturate(120%);
+      opacity: 0.6;
+      transform: translateZ(0);
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 520px;
+      height: 160px;
+      left: -120px;
+      top: 18%;
+      background: linear-gradient(90deg, rgba(60, 64, 255, 0.25), rgba(120, 255, 200, 0.06));
+      border-radius: 100px;
+      transform: rotate(-18deg);
+    }
+
+    body::after {
+      width: 640px;
+      height: 220px;
+      right: -180px;
+      bottom: 8%;
+      background: linear-gradient(90deg, rgba(255, 140, 155, 0.14), rgba(180, 120, 255, 0.06));
+      border-radius: 140px;
+      transform: rotate(12deg);
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 10px;
+      font-size: 32px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #98A3FF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #6e7bff, #ff8fb8);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.25s;
+      box-shadow: 0 8px 30px rgba(110, 123, 255, 0.18);
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 20px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    .link a {
+      color: #FFD0E0;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .back-link a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .back-link a:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 35px 25px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to access the Lost & Found system</p>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+
+      <div class="link">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+      </div>
+
+      <div class="back-link">
+        <a href="index.html">← Back to Home</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Check if user is already logged in
+    window.addEventListener('DOMContentLoaded', function () {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        window.location.href = 'dashboard.html';
+      }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Validate inputs
+      if (!email || !password) {
+        alert('❌ Please fill in all fields!');
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('❌ Please enter a valid email address!');
+        return;
+      }
+
+      // Check for admin credentials
+      const ADMIN_EMAIL = 'admin@lostandfound.com';
+      const ADMIN_PASSWORD = 'admin123';
+
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        // Admin login
+        localStorage.setItem('currentUser', JSON.stringify({
+          name: 'Administrator',
+          email: ADMIN_EMAIL,
+          isAdmin: true,
+          loginTime: new Date().toISOString()
+        }));
+
+        alert('✅ Admin login successful! Welcome, Administrator!');
+        window.location.href = 'admin.html';
+        return;
+      }
+
+      // Get registered users from localStorage
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+      // Find user with matching credentials
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        // Successful login
+        localStorage.setItem('currentUser', JSON.stringify({
+          name: user.name,
+          email: user.email,
+          loginTime: new Date().toISOString()
+        }));
+
+        // Show success message
+        alert('✅ Login successful! Welcome back, ' + user.name + '!');
+
+        // Redirect to dashboard
+        window.location.href = 'dashboard.html';
+      } else {
+        // Failed login
+        alert('❌ Invalid email or password!\n\nHint: If you don\'t have an account, please sign up first.');
+      }
+    });
+
+    // Show/Hide password toggle (if you want to add this feature)
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+    }
+  </script>
+</body>
+
+</html>

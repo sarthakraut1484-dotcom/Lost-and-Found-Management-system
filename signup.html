@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Lost & Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, #070708 0%, #0b0b0f 60%, #08080a 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative background elements */
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            filter: blur(40px) saturate(120%);
+            opacity: 0.6;
+            transform: translateZ(0);
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 520px;
+            height: 160px;
+            left: -120px;
+            top: 18%;
+            background: linear-gradient(90deg, rgba(60, 64, 255, 0.25), rgba(120, 255, 200, 0.06));
+            border-radius: 100px;
+            transform: rotate(-18deg);
+        }
+
+        body::after {
+            width: 640px;
+            height: 220px;
+            right: -180px;
+            bottom: 8%;
+            background: linear-gradient(90deg, rgba(255, 140, 155, 0.14), rgba(180, 120, 255, 0.06));
+            border-radius: 140px;
+            transform: rotate(12deg);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #98A3FF;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #6e7bff, #ff8fb8);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.25s;
+            box-shadow: 0 8px 30px rgba(110, 123, 255, 0.18);
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .link a {
+            color: #FFD0E0;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link a:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 35px 25px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create Account</h1>
+        <p class="subtitle">Join the Lost & Found community</p>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+            <button type="submit" class="btn">Sign Up</button>
+
+            <div class="link">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+
+            <div class="back-link">
+                <a href="index.html">← Back to Home</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        window.addEventListener('DOMContentLoaded', function () {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validate all fields are filled
+            if (!name || !email || !password || !confirmPassword) {
+                alert('❌ Please fill in all fields!');
+                return;
+            }
+
+            // Validate name (at least 2 characters)
+            if (name.length < 2) {
+                alert('❌ Name must be at least 2 characters long!');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('❌ Please enter a valid email address!');
+                return;
+            }
+
+            // Password validation
+            if (password.length < 6) {
+                alert('❌ Password must be at least 6 characters long!');
+                return;
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('❌ Passwords do not match!');
+                return;
+            }
+
+            // Password strength check (optional but recommended)
+            const hasNumber = /\d/.test(password);
+            const hasLetter = /[a-zA-Z]/.test(password);
+
+            if (!hasNumber || !hasLetter) {
+                const proceed = confirm('⚠️ Your password is weak. It should contain both letters and numbers.\n\nDo you want to continue anyway?');
+                if (!proceed) return;
+            }
+
+            // Get existing users from localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Check if email already exists
+            const existingUser = users.find(u => u.email === email);
+            if (existingUser) {
+                alert('❌ This email is already registered!\n\nPlease use a different email or login instead.');
+                return;
+            }
+
+            // Create new user object
+            const newUser = {
+                name: name,
+                email: email,
+                password: password,
+                registeredAt: new Date().toISOString()
+            };
+
+            // Add user to array
+            users.push(newUser);
+
+            // Save to localStorage
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Show success message
+            alert('✅ Account created successfully!\n\nWelcome, ' + name + '! You can now login.');
+
+            // Redirect to login page
+            window.location.href = 'login.html';
+        });
+
+        // Optional: Real-time password match indicator
+        document.getElementById('confirmPassword').addEventListener('input', function () {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+
+            if (confirmPassword && password !== confirmPassword) {
+                this.style.borderColor = '#ff6b6b';
+            } else if (confirmPassword && password === confirmPassword) {
+                this.style.borderColor = '#51cf66';
+            } else {
+                this.style.borderColor = 'rgba(255,255,255,0.1)';
+            }
+        });
+    </script>
+</body>
+
+</html>
